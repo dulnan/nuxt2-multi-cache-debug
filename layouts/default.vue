@@ -21,6 +21,21 @@
 export default {
   computed: {
     availableLocales() {
+      const currentEntityLangStatus =
+        this.$store.getters["settings/currentEntityLangStatus"];
+
+      // pages that have dynamic language options
+      const dynamicLangPages = ["category-slug"];
+
+      if (
+        dynamicLangPages.includes(this.getRouteBaseName()) &&
+        currentEntityLangStatus
+      ) {
+        return this.$i18n.locales.filter((lang) => {
+          return currentEntityLangStatus?.[lang.locale] === "enabled";
+        });
+      }
+
       return this.$i18n.locales.filter((i) => i.code !== this.$i18n.locale);
     },
   },

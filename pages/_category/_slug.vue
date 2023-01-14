@@ -31,6 +31,11 @@ export default {
     async fetchProduct() {
       await this.$store.dispatch("products/get", 1);
       const product = this.$store.getters["products/currentProduct"];
+      this.$store.commit("settings/setCurrentEntityLangStatus", {
+        en: "enabled",
+        fr: "enabled",
+        es: "disabled",
+      });
       this.product = product;
     },
   },
